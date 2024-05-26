@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/img/Artboard_2.png';
 
-function Navbar() {
+function Navbar({ isLoggedIn }) {
     const [showMenu, setShowMenu] = useState(false);
+    const navigate = useNavigate();
 
     const toggleMenu = () => {
         setShowMenu(!showMenu);
+    };
+
+    const handleLoginClick = () => {
+        navigate('/login');
     };
 
     return (
@@ -24,7 +29,18 @@ function Navbar() {
                     <li><a href="#about-us" className="hover:underline">За нас</a></li>
                 </ul>
                 <div className="flex items-center space-x-2">
-                    <button className="p-2 bg-blue-500 hover:bg-blue-700 text-white rounded font-proxima-nova-condensed">Вход</button>
+                    {isLoggedIn ? (
+                        <>
+                            <Link to="/profile" className="p-2 text-white">
+                                <img src="../../assets/img/icons8-cart-30.png" alt="" />
+                            </Link>
+                            <Link to="/cart" className="p-2 text-white">
+                                <img src="../../assets/img/icons8-user-24.png" alt="" />
+                            </Link>
+                        </>
+                    ) : (
+                        <button onClick={handleLoginClick} className="p-2 bg-blue-500 hover:bg-blue-700 text-white rounded font-proxima-nova-condensed">Вход</button>
+                    )}
                 </div>
             </div>
             <div className="md:hidden">
