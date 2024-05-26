@@ -10,4 +10,7 @@ export class Product {
 
   @Column()
   public productImg: string;
+
+  @Column()
+  public price: number;
 }
