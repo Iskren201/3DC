@@ -9,3 +9,33 @@ body {
 body {
   font-family: 'JetBrains Mono', monospace;
 }
+
+@font-face {
+  font-family: 'Proxima Nova Condensed';
+  src: url('../fonts/ProximaNovaCondensed-Regular.woff2') format('woff2'),
+       url('../fonts/ProximaNovaCondensed-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Trend Sans Five';
+  src: url('../fonts/TrendSansFive-Regular.woff2') format('woff2'),
+       url('../fonts/TrendSansFive-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Trend Sans One';
+  src: url('../fonts/TrendSansOne-Regular.woff2') format('woff2'),
+       url('../fonts/TrendSansOne-Regular.woff') format('woff');
+}
+
+.font-proxima-nova-condensed {
+  font-family: 'Proxima Nova Condensed', sans-serif;
+}
+
+.font-trend-sans-five {
+  font-family: 'Trend Sans Five', sans-serif;
+}
+
+.font-trend-sans-one {
+  font-family: 'Trend Sans One', sans-serif;
+}
