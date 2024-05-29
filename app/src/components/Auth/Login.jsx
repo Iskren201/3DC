@@ -16,8 +16,13 @@ const Login = ({ setIsLoggedIn }) => {
                 password,
             });
             console.log(response.data);
-            setIsLoggedIn(true);
-            navigate('/');  // Препращане към началната страница след успешен вход
+            if (response.data.access_token) {
+                localStorage.setItem('access_token', response.data.access_token);
+                setIsLoggedIn(true);
+                navigate('/');
+            } else {
+                console.error('Invalid login response');
+            }
         } catch (error) {
             console.error('Error logging in:', error);
         }

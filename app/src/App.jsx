@@ -1,13 +1,20 @@
-import { useState } from 'react'
-import './App.css'
+import { useState, useEffect } from 'react';
+import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from './components/Auth/Login'
-import Home from './components/Home/Home'
-import Register from './components/Auth/Register'
+import Login from './components/Auth/Login';
+import Home from './components/Home/Home';
+import Register from './components/Auth/Register';
 import Navbar from './components/navBar/navBar';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   return (
     <BrowserRouter>
@@ -18,7 +25,7 @@ function App() {
         <Route path='/login' element={<Login setIsLoggedIn={setIsLoggedIn} />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,18 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faShoppingCart, faSignOutAlt, faBars } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../assets/img/Artboard_2.png';
 
 function Navbar({ isLoggedIn }) {
     const [showMenu, setShowMenu] = useState(false);
+    const [showDropdown, setShowDropdown] = useState(false);
     const navigate = useNavigate();
+    const dropdownRef = useRef(null);
 
     const toggleMenu = () => {
         setShowMenu(!showMenu);
     };
 
+    const toggleDropdown = () => {
+        setShowDropdown(!showDropdown);
+    };
+
     const handleLoginClick = () => {
         navigate('/login');
     };
+
+    const handleLogoutClick = () => {
+        navigate('/');
+    };
+
+    const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setShowDropdown(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
         <nav className="bg-black bg-opacity-25 backdrop-blur-md p-4 text-white flex justify-between items-center relative z-50">
@@ -31,11 +56,20 @@ function Navbar({ isLoggedIn }) {
                 <div className="flex items-center space-x-2">
                     {isLoggedIn ? (
                         <>
-                            <Link to="/profile" className="p-2 text-white">
-                                <img src="../../assets/img/icons8-cart-30.png" alt="" />
-                            </Link>
+                            <div className="relative" ref={dropdownRef}>
+                                <button onClick={toggleDropdown} className="p-2 text-white focus:outline-none">
+                                    <FontAwesomeIcon icon={faUser} size="lg" />
+                                </button>
+                                {showDropdown && (
+                                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50">
+                                        <Link to="/profile" className="block px-4 py-2 text-black hover:bg-gray-100">Profile</Link>
+                                        <Link to="/settings" className="block px-4 py-2 text-black hover:bg-gray-100">Settings</Link>
+                                        <button onClick={handleLogoutClick} className="block w-full text-left px-4 py-2 text-black hover:bg-gray-100">Logout</button>
+                                    </div>
+                                )}
+                            </div>
                             <Link to="/cart" className="p-2 text-white">
-                                <img src="../../assets/img/icons8-user-24.png" alt="" />
+                                <FontAwesomeIcon icon={faShoppingCart} size="lg" />
                             </Link>
                         </>
                     ) : (
@@ -45,9 +79,7 @@ function Navbar({ isLoggedIn }) {
             </div>
             <div className="md:hidden">
                 <button onClick={toggleMenu} className="p-2 focus:outline-none">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-                    </svg>
+                    <FontAwesomeIcon icon={faBars} size="lg" />
                 </button>
             </div>
             {showMenu && (
@@ -58,6 +90,13 @@ function Navbar({ isLoggedIn }) {
                         <li><a href="#services" className="hover:underline">Услуги</a></li>
                         <li><a href="#contacts" className="hover:underline">Контакти</a></li>
                         <li><a href="#about-us" className="hover:underline">За нас</a></li>
+                        {isLoggedIn && (
+                            <>
+                                <li><Link className="hover:underline">Profile</Link></li>
+                                <li><Link className="hover:underline">Cart</Link></li>
+                                <li><button onClick={handleLogoutClick} className="hover:underline">Logout</button></li>
+                            </>
+                        )}
                     </ul>
                 </div>
             )}

@@ -5,7 +5,7 @@ import { JwtAuthGuard } from 'src/auth/auth/jwt-auth.guard';
 export class ProtectedController {
   @UseGuards(JwtAuthGuard)
   @Get()
-  getProtectedResource() {
-    return { message: 'This is a protected resource' };
+  getProtectedData() {
+    return { message: 'This is protected data' };
   }
 }
