@@ -67,7 +67,7 @@ const Slider = () => {
             ))}
             <div className="absolute top-1/2 left-4 transform -translate-y-1/2">
                 <button
-                    className="bg-black bg-opacity-50 text-white p-3 rounded-full shadow-lg hover:bg-opacity-75"
+                    className="bg-black bg-opacity-50 text-white p-3 rounded-full opacity-65 hover:-translate-y-1 hover:scale-110 duration-300 shadow-lg hover:bg-opacity-75"
                     style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)' }}
                     onClick={prevSlide}
                 >
@@ -78,7 +78,7 @@ const Slider = () => {
             </div>
             <div className="absolute top-1/2 right-4 transform -translate-y-1/2">
                 <button
-                    className="bg-black bg-opacity-50 text-white p-3 rounded-full shadow-lg hover:bg-opacity-75"
+                    className="bg-black bg-opacity-50 text-white p-3 rounded-full opacity-65 shadow-lg hover:bg-opacity-75 hover:scale-110 duration-300"
                     style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)' }}
                     onClick={nextSlide}
                 >
