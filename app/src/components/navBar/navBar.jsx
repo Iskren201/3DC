@@ -48,10 +48,10 @@ function Navbar({ isLoggedIn }) {
             <div className="hidden md:flex md:items-center md:space-x-6">
                 <ul className="flex space-x-6">
                     <li><a href="#3d-printers" className="hover:underline">3D Принтери</a></li>
-                    <li><a href="#products" className="hover:underline">Продукти</a></li>
-                    <li><a href="#services" className="hover:underline">Услуги</a></li>
-                    <li><a href="#contacts" className="hover:underline">Контакти</a></li>
-                    <li><a href="#about-us" className="hover:underline">За нас</a></li>
+                    <li><a className="hover:underline">Продукти</a></li>
+                    <li><a className="hover:underline">Услуги</a></li>
+                    <li><a className="hover:underline">Контакти</a></li>
+                    <li><a className="hover:underline">За нас</a></li>
                 </ul>
                 <div className="flex items-center space-x-2">
                     {isLoggedIn ? (
@@ -62,7 +62,7 @@ function Navbar({ isLoggedIn }) {
                                 </button>
                                 {showDropdown && (
                                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50">
-                                        <Link to="/profile" className="block px-4 py-2 text-black hover:bg-gray-100">Profile</Link>
+                                        <Link to="Profile" className="block px-4 py-2 text-black hover:bg-gray-100">Profile</Link>
                                         <Link to="/settings" className="block px-4 py-2 text-black hover:bg-gray-100">Settings</Link>
                                         <button onClick={handleLogoutClick} className="block w-full text-left px-4 py-2 text-black hover:bg-gray-100">Logout</button>
                                     </div>

@@ -5,6 +5,7 @@ import Login from './components/Auth/Login';
 import Home from './components/Home/Home';
 import Register from './components/Auth/Register';
 import Navbar from './components/navBar/navBar';
+import Profile from './components/Profile/Profile';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -23,6 +24,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path='/Profile' element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );

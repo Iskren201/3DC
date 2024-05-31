@@ -1,5 +1,15 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Put,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { JwtAuthGuard } from './jwt-auth.guard';
+import { User } from '../user/user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -22,5 +32,20 @@ export class AuthController {
       return { access_token: token };
     }
     return { message: 'Invalid credentials' };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  async getProfile(@Req() req: User) {
+    return this.authService.getProfile(req.user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put('profile')
+  async updateProfile(
+    @Req() req: User,
+    @Body() body: { username: string; email: string },
+  ) {
+    return this.authService.updateProfile(req.user, body.username, body.email);
   }
 }

@@ -21,6 +21,7 @@ import { JwtStrategy } from './auth/jwt.strategy';
         signOptions: { expiresIn: '1h' },
       }),
     }),
+    PassportModule,
   ],
   providers: [AuthService, JwtStrategy],
   controllers: [AuthController],

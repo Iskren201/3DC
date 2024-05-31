@@ -34,4 +34,17 @@ export class AuthService {
     }
     return null;
   }
+
+  async getProfile(userId: number): Promise<User> {
+    return this.usersRepository.findOne({ where: { id: userId } });
+  }
+
+  async updateProfile(
+    userId: number,
+    username: string,
+    email: string,
+  ): Promise<User> {
+    await this.usersRepository.update(userId, { username, email });
+    return this.getProfile(userId);
+  }
 }
