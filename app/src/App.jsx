@@ -6,6 +6,8 @@ import Home from './components/Home/Home';
 import Register from './components/Auth/Register';
 import Navbar from './components/navBar/navBar';
 import Profile from './components/Profile/Profile';
+import Product from './components/Product/Product';
+import ProductList from './components/Product/Product-list';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -25,6 +27,7 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path='/Profile' element={<Profile />} />
+        <Route path='/product' element={<ProductList />} />
       </Routes>
     </BrowserRouter>
   );
