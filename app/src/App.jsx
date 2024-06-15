@@ -8,6 +8,7 @@ import Navbar from './components/navBar/navBar';
 import Profile from './components/Profile/Profile';
 import Product from './components/Product/Product';
 import ProductList from './components/Product/Product-list';
+import CreateProduct from './components/Product/CreateProduct';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,6 +29,7 @@ function App() {
         <Route path='/login' element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path='/Profile' element={<Profile />} />
         <Route path='/product' element={<ProductList />} />
+        <Route path='/CreateProduct' element={<CreateProduct />} />
       </Routes>
     </BrowserRouter>
   );
