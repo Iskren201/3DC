@@ -45,11 +45,11 @@ function Navbar({ isLoggedIn }) {
                 <img src={logo} alt="Logo" className="h-12 mr-4" />
                 <span className="text-xl font-bold text-[#454490] uppercase font-trend-sans-one">3D Creations</span>
             </Link>
-            <div className="hidden md:flex md:items-center md:space-x-6">
-                <ul className="flex space-x-6">
-                    <li><a href="#3d-printers" className="hover:underline">3D Принтери</a></li>
+            <div className="hidden md:flex md:items-center md:space-x-6 ">
+                <ul className="flex space-x-6 justify-items-center items-center">
+                    {/* <li><a href="#3d-printers" className="hover:underline">3D Принтери</a></li> */}
                     <li><Link to='product' className="hover:underline">Продукти</Link></li>
-                    <li><a className="hover:underline">Услуги</a></li>
+                    {/* <li><a className="hover:underline">Услуги</a></li> */}
                     <li><a className="hover:underline">Контакти</a></li>
                     <li><a className="hover:underline">За нас</a></li>
                 </ul>
@@ -86,9 +86,9 @@ function Navbar({ isLoggedIn }) {
             {showMenu && (
                 <div className="md:hidden absolute top-16 right-0 left-0 bg-black bg-opacity-75 backdrop-blur-md p-4 rounded z-50">
                     <ul className="flex flex-col space-y-4">
-                        <li><a href="#3d-printers" className="hover:underline">3D Принтери</a></li>
+                        {/* <li><a href="#3d-printers" className="hover:underline">3D Принтери</a></li> */}
                         <li><a href="#products" className="hover:underline">Продукти</a></li>
-                        <li><a href="#services" className="hover:underline">Услуги</a></li>
+                        {/* <li><a href="#services" className="hover:underline">Услуги</a></li> */}
                         <li><a href="#contacts" className="hover:underline">Контакти</a></li>
                         <li><a href="#about-us" className="hover:underline">За нас</a></li>
                         {isLoggedIn && (

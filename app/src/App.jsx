@@ -9,6 +9,7 @@ import Profile from './components/Profile/Profile';
 import Product from './components/Product/Product';
 import ProductList from './components/Product/Product-list';
 import CreateProduct from './components/Product/CreateProduct';
+import Footer from './components/Footer/Footer';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -31,6 +32,7 @@ function App() {
         <Route path='/product' element={<ProductList />} />
         <Route path='/CreateProduct' element={<CreateProduct />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

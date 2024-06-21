@@ -13,7 +13,6 @@ const CreateProduct = ({ addProduct }) => {
         }
 
         try {
-            // Example of sending POST request to backend (adjust URL accordingly)
             const response = await fetch('http://localhost:3000/api/products', {
                 method: 'POST',
                 headers: {
