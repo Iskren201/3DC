@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faShoppingCart, faSignOutAlt, faBars } from '@fortawesome/free-solid-svg-icons';
-import logo from '../../assets/img/Artboard_2.png';
+import { faUser, faShoppingCart, faBars } from '@fortawesome/free-solid-svg-icons';
+import logo from '../../assets/img/Logo.png';
 
 function Navbar({ isLoggedIn }) {
     const [showMenu, setShowMenu] = useState(false);
@@ -23,6 +23,7 @@ function Navbar({ isLoggedIn }) {
     };
 
     const handleLogoutClick = () => {
+        // TODO: Create a logout with clear a JWT
         navigate('/');
     };
 
@@ -42,8 +43,7 @@ function Navbar({ isLoggedIn }) {
     return (
         <nav className="bg-black bg-opacity-25 backdrop-blur-md p-4 text-white flex justify-between items-center relative z-50">
             <Link to={'/'} className="flex items-center">
-                <img src={logo} alt="Logo" className="h-12 mr-4" />
-                <span className="text-xl font-bold text-[#454490] uppercase font-trend-sans-one">3D Creations</span>
+                <img src={logo} alt="Logo" className="h-16 w-80 mr-4" />
             </Link>
             <div className="hidden md:flex md:items-center md:space-x-6 ">
                 <ul className="flex space-x-6 justify-items-center items-center">
@@ -63,7 +63,7 @@ function Navbar({ isLoggedIn }) {
                                 {showDropdown && (
                                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50">
                                         <Link to="Profile" className="block px-4 py-2 text-black hover:bg-gray-100">Profile</Link>
-                                        <Link to="CreateProduct" className="block px-4 py-2 text-black hover:bg-gray-100">Create Product</Link>
+                                        {/* <Link to="CreateProduct" className="block px-4 py-2 text-black hover:bg-gray-100">Create Product</Link> */}
                                         <Link to="/settings" className="block px-4 py-2 text-black hover:bg-gray-100">Settings</Link>
                                         <button onClick={handleLogoutClick} className="block w-full text-left px-4 py-2 text-black hover:bg-gray-100">Logout</button>
                                     </div>

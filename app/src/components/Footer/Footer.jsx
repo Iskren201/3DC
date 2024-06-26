@@ -5,7 +5,7 @@ import { FaTiktok, FaYoutube, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
     return (
-        <div className="bg-black text-white py-6">
+        <footer className="bg-black text-white w-full py-8">
             <div className="flex flex-col items-center space-y-4">
                 <p className="text-lg">Методи на плащане:</p>
                 <div className="flex space-x-6 text-3xl">
@@ -21,7 +21,7 @@ const Footer = () => {
                     <FaInstagram />
                 </div>
             </div>
-        </div>
+        </footer>
     );
 }
 

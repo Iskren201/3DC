@@ -1,61 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import Product from './Product';
-import CreateProduct from './CreateProduct';
+import React from 'react';
 
 const ProductList = () => {
-    const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-        fetchProducts();
-    }, []); // Fetch products on initial component load
-
-    const fetchProducts = async () => {
-        try {
-            const response = await fetch('http://localhost:3000/api/products'); // Corrected endpoint
-            if (!response.ok) {
-                throw new Error('Failed to fetch products.');
-            }
-            const data = await response.json();
-            setProducts(data); // Assuming data is an array of products from API
-        } catch (error) {
-            console.error('Error fetching products:', error);
+    const products = [
+        {
+            id: 1,
+            name: 'Product 1',
+            price: '$10.00',
+            image: 'https://via.placeholder.com/150',
+        },
+        {
+            id: 2,
+            name: 'Product 2',
+            price: '$20.00',
+            image: 'https://via.placeholder.com/150',
+        },
+        {
+            id: 3,
+            name: 'Product 3',
+            price: '$30.00',
+            image: 'https://via.placeholder.com/150',
         }
-    };
-
-    const addProduct = async (newProduct) => {
-        try {
-            const response = await fetch('http://localhost:3000/api/products', { // Corrected endpoint
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newProduct),
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to add product.');
-            }
-
-            const data = await response.json();
-            setProducts([...products, data]); // Assuming data is the newly added product
-            alert('Product added successfully!');
-        } catch (error) {
-            console.error('Error adding product:', error);
-            alert('Failed to add product. Please try again.');
-        }
-    };
+    ];
 
     return (
-        <div className="max-w-3xl mx-auto mt-6 px-4">
-            <h1 className="text-3xl font-bold mb-6">Product List</h1>
-            <CreateProduct addProduct={addProduct} />
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {products.map((product) => (
-                    <Product key={product.id} product={product} />
-                ))}
-            </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {products.map((product) => (
+                <div key={product.id} className="border p-4 rounded-lg shadow hover:shadow-lg transition-shadow">
+                    <img src={product.image} alt={product.name} className="w-full h-48 object-cover mb-4 rounded" />
+                    <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
+                    <p className="text-gray-700">{product.price}</p>
+                </div>
+            ))}
         </div>
     );
-};
+}
 
 export default ProductList;
