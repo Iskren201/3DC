@@ -17,6 +17,9 @@ const Hero = () => {
         variableWidth: true,
     };
 
+
+    const test = 2;
+
     const slides = [
         {
             id: 1,
@@ -56,16 +59,24 @@ const Hero = () => {
         <div className='text-white p-4 sm:p-6 md:p-10'>
             <div className='relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8'>
                 <div className='relative'>
-                    <img src={stairs} alt='stairs' className='absolute bottom-0 w-1/2 sm:w-3/4 lg:w-full left-1/2 transform -translate-x-1/2' />
-                    <img src={item1} alt='Item 2' className='relative rounded-lg mx-auto z-10 w-1/2 sm:w-2/3 lg:w-3/4' />
+                    <img src={item1} alt='Item 3' className='relative rounded-lg mx-auto z-10 w-1/2 sm:w-2/3 lg:w-3/4' />
+                    <img src={stairs} alt='stairs' className='relative bottom-0 h-52 sm:w-3/4  left-1/2 transform -translate-x-1/2' />
                 </div>
-                <div className='relative'>
+                {/* <div className='relative'>
                     <img src={stairs} alt='stairs' className='absolute bottom-0 w-1/2 sm:w-3/4 lg:w-full left-1/2 transform -translate-x-1/2' />
                     <img src={item1} alt='Item 1' className='relative rounded-lg mx-auto z-10 w-1/2 sm:w-2/3 lg:w-3/4' />
                 </div>
                 <div className='relative'>
                     <img src={stairs} alt='stairs' className='absolute bottom-0 w-1/2 sm:w-3/4 lg:w-full left-1/2 transform -translate-x-1/2' />
                     <img src={item1} alt='Item 3' className='relative rounded-lg mx-auto z-10 w-1/2 sm:w-2/3 lg:w-3/4' />
+                </div> */}
+                <div className='relative'>
+                    <img src={item2} alt='Item 2' className='relative rounded-lg mx-auto z-10 w-1/2 sm:w-2/3 lg:w-3/4' />
+                    <img src={stairs} alt='stairs' className='relative bottom-0 h-52 sm:w-3/4  left-1/2 transform -translate-x-1/2' />
+                </div>
+                <div className='relative'>
+                    <img src={item1} alt='Item 3' className='relative rounded-lg mx-auto z-10 w-1/2 sm:w-2/3 lg:w-3/4' />
+                    <img src={stairs} alt='stairs' className='relative bottom-0 h-52 sm:w-3/4  left-1/2 transform -translate-x-1/2' />
                 </div>
             </div>
             <div className='text-white'>
