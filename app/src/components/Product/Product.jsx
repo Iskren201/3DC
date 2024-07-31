@@ -1,6 +1,6 @@
 import React from 'react';
 import ProductList from './Product-list';
-
+// ! Product Filter
 const Product = () => {
     return (
         <div className="max-w-7xl mx-auto mt-6 px-4 h-screen flex">

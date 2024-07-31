@@ -8,6 +8,15 @@ export class Product {
   @Column()
   name: string;
 
-  @Column('decimal')
+  @Column({ default: 'No description provided)', nullable: true })
+  description: string;
+
+  @Column({ nullable: true, type: 'decimal' })
   price: number;
+
+  @Column({ nullable: true, type: 'int' })
+  stock: number;
+
+  @Column({ nullable: true })
+  imageUrl: string;
 }
