@@ -1,14 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faShoppingCart, faBars } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../assets/img/Logo.png';
+import { useCart } from '../addToCart/CartContext';
 
 function Navbar({ isLoggedIn }) {
-    const [showMenu, setShowMenu] = useState(false);
-    const [showDropdown, setShowDropdown] = useState(false);
+    const [showMenu, setShowMenu] = React.useState(false);
+    const [showDropdown, setShowDropdown] = React.useState(false);
     const navigate = useNavigate();
-    const dropdownRef = useRef(null);
+    const dropdownRef = React.useRef(null);
+    const { cartCount } = useCart(); // Correctly call this from context
 
     const toggleMenu = () => {
         setShowMenu(!showMenu);
@@ -23,7 +25,7 @@ function Navbar({ isLoggedIn }) {
     };
 
     const handleLogoutClick = () => {
-        // TODO: Create a logout with clear a JWT
+        // TODO: Implement logout logic
         navigate('/');
     };
 
@@ -33,7 +35,7 @@ function Navbar({ isLoggedIn }) {
         }
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
@@ -45,13 +47,11 @@ function Navbar({ isLoggedIn }) {
             <Link to={'/'} className="flex items-center">
                 <img src={logo} alt="Logo" className="h-16 w-80 mr-4" />
             </Link>
-            <div className="hidden md:flex md:items-center md:space-x-6 ">
+            <div className="hidden md:flex md:items-center md:space-x-6">
                 <ul className="flex space-x-6 justify-items-center items-center">
-                    {/* <li><a href="#3d-printers" className="hover:underline">3D Принтери</a></li> */}
-                    <li><Link to='product' className="hover:underline">Продукти</Link></li>
-                    {/* <li><a className="hover:underline">Услуги</a></li> */}
-                    <li><a className="hover:underline">Контакти</a></li>
-                    <li><a className="hover:underline">За нас</a></li>
+                    <li><Link to='/product' className="hover:underline">Products</Link></li>
+                    <li><a href="#contacts" className="hover:underline">Contacts</a></li>
+                    <li><a href="#about-us" className="hover:underline">About Us</a></li>
                 </ul>
                 <div className="flex items-center space-x-2">
                     {isLoggedIn ? (
@@ -62,19 +62,24 @@ function Navbar({ isLoggedIn }) {
                                 </button>
                                 {showDropdown && (
                                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50">
-                                        <Link to="Profile" className="block px-4 py-2 text-black hover:bg-gray-100">Profile</Link>
-                                        {/* <Link to="CreateProduct" className="block px-4 py-2 text-black hover:bg-gray-100">Create Product</Link> */}
+                                        <Link to="/Profile" className="block px-4 py-2 text-black hover:bg-gray-100">Profile</Link>
+                                        <Link to="/createProduct" className="block px-4 py-2 text-black hover:bg-gray-100">Create Product</Link>
                                         <Link to="/settings" className="block px-4 py-2 text-black hover:bg-gray-100">Settings</Link>
                                         <button onClick={handleLogoutClick} className="block w-full text-left px-4 py-2 text-black hover:bg-gray-100">Logout</button>
                                     </div>
                                 )}
                             </div>
-                            <Link to="/cart" className="p-2 text-white">
+                            <Link to="/cart" className="relative p-2 text-white">
                                 <FontAwesomeIcon icon={faShoppingCart} size="lg" />
+                                {cartCount > 0 && (
+                                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full px-2 py-1">
+                                        {cartCount}
+                                    </span>
+                                )}
                             </Link>
                         </>
                     ) : (
-                        <button onClick={handleLoginClick} className="p-2 bg-blue-500 hover:bg-blue-700 text-white rounded font-proxima-nova-condensed">Вход</button>
+                        <button onClick={handleLoginClick} className="p-2 bg-blue-500 hover:bg-blue-700 text-white rounded font-proxima-nova-condensed">Login</button>
                     )}
                 </div>
             </div>
@@ -86,15 +91,14 @@ function Navbar({ isLoggedIn }) {
             {showMenu && (
                 <div className="md:hidden absolute top-16 right-0 left-0 bg-black bg-opacity-75 backdrop-blur-md p-4 rounded z-50">
                     <ul className="flex flex-col space-y-4">
-                        {/* <li><a href="#3d-printers" className="hover:underline">3D Принтери</a></li> */}
-                        <li><a href="#products" className="hover:underline">Продукти</a></li>
-                        {/* <li><a href="#services" className="hover:underline">Услуги</a></li> */}
-                        <li><a href="#contacts" className="hover:underline">Контакти</a></li>
-                        <li><a href="#about-us" className="hover:underline">За нас</a></li>
+                        <li><Link to='/product' className="hover:underline">Products</Link></li>
+                        <li><a href="#contacts" className="hover:underline">Contacts</a></li>
+                        <li><a href="#about-us" className="hover:underline">About Us</a></li>
                         {isLoggedIn && (
                             <>
-                                <li><Link className="hover:underline">Profile</Link></li>
-                                <li><Link className="hover:underline">Cart</Link></li>
+                                <li><Link to="/Profile" className="hover:underline">Profile</Link></li>
+                                <li><Link to="/cart" className="hover:underline">Cart</Link></li>
+                                <li><Link to="/createProduct" className="hover:underline">Create Product</Link></li>
                                 <li><button onClick={handleLogoutClick} className="hover:underline">Logout</button></li>
                             </>
                         )}
