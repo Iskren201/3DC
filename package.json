@@ -1,10 +1,15 @@
 {
   "dependencies": {
+<<<<<<< Updated upstream
     "@nestjs/common": "^10.3.10",
+=======
+    "@nestjs/config": "^3.2.3",
+>>>>>>> Stashed changes
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/passport": "^10.0.3",
     "@nestjs/typeorm": "^10.0.2",
     "bcrypt": "^5.1.1",
+<<<<<<< Updated upstream
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "typeorm": "^0.3.20"
@@ -12,5 +17,9 @@
   "devDependencies": {
     "@nestjs/testing": "^10.3.10",
     "supertest": "^7.0.0"
+=======
+    "passport-jwt": "^4.0.1",
+    "typeorm": "^0.3.20"
+>>>>>>> Stashed changes
   }
 }
