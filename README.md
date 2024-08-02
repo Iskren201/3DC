@@ -129,6 +129,16 @@ Feel free to submit issues and pull requests. For major changes, please open an 
 
 ## License
 
+<<<<<<< Updated upstream
 [MIT](LICENSE)
 
+<<<<<<< Updated upstream
 ## Rumen - Task
+=======
+##Test5 - Rumen
+
+
+=======
+[MIT](LICENSE)
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
