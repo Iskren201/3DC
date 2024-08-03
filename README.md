@@ -131,4 +131,9 @@ Feel free to submit issues and pull requests. For major changes, please open an 
 
 [MIT](LICENSE)
 
+<<<<<<< HEAD
 ## Rumen - Task
+=======
+
+
+>>>>>>> parent of 4b13582c (Test4)
