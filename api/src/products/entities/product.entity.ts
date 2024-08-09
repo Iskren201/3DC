@@ -8,7 +8,7 @@ export class Product {
   @Column()
   name: string;
 
-  @Column({ default: 'No description provided)', nullable: true })
+  @Column({ default: 'No description provided', nullable: true })
   description: string;
 
   @Column({ nullable: true, type: 'decimal' })
@@ -19,4 +19,11 @@ export class Product {
 
   @Column({ nullable: true })
   imageUrl: string;
+
+  @Column({ nullable: true })
+  category: string;
+
+  @Column({ nullable: true })
+  brand: string;
 }
+

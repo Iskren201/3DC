@@ -16,7 +16,31 @@ export class ProductService {
     return this.productRepository.save(product);
   }
 
-  async findAll(): Promise<Product[]> {
-    return this.productRepository.find();
+  async findAll(filters: {
+    category?: string;
+    minPrice?: number;
+    maxPrice?: number;
+    brand?: string;
+  }): Promise<Product[]> {
+    const queryBuilder = this.productRepository.createQueryBuilder('product');
+
+    if (filters.category) {
+      queryBuilder.andWhere('product.category = :category', { category: filters.category });
+    }
+
+    if (filters.minPrice !== undefined) {
+      queryBuilder.andWhere('product.price >= :minPrice', { minPrice: filters.minPrice });
+    }
+
+    if (filters.maxPrice !== undefined) {
+      queryBuilder.andWhere('product.price <= :maxPrice', { maxPrice: filters.maxPrice });
+    }
+
+    if (filters.brand) {
+      queryBuilder.andWhere('product.brand = :brand', { brand: filters.brand });
+    }
+
+    return await queryBuilder.getMany();
   }
 }
+

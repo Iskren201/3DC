@@ -5,6 +5,7 @@ import {
   UploadedFile,
   UseInterceptors,
   Get,
+  Query,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ProductService } from './product.service';
@@ -17,32 +18,42 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
-  @UseInterceptors(
-    FileInterceptor('image', {
-      storage: diskStorage({
-        destination: './uploads',
-        filename: (req, file, cb) => {
-          const uniqueSuffix =
-            Date.now() + '-' + Math.round(Math.random() * 1e9);
-          const extname = path.extname(file.originalname);
-          const filename = `${file.fieldname}-${uniqueSuffix}${extname}`;
-          cb(null, filename);
-        },
-      }),
+@UseInterceptors(
+  FileInterceptor('image', {
+    storage: diskStorage({
+      destination: './uploads',
+      filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+        const extname = path.extname(file.originalname);
+        const filename = `${file.fieldname}-${uniqueSuffix}${extname}`;
+        cb(null, filename);
+      },
     }),
-  )
-  async create(
-    @Body() createProductDto: CreateProductDto,
-    @UploadedFile() file: Express.Multer.File,
-  ) {
-    if (file) {
-      createProductDto.image = file.filename;
-    }
-    return this.productService.create(createProductDto);
+  }),
+)
+async create(
+  @Body() createProductDto: CreateProductDto,
+  @UploadedFile() file: Express.Multer.File,
+) {
+  if (file) {
+    createProductDto.imageUrl = file.filename;
   }
+  return this.productService.create(createProductDto);
+}
 
   @Get()
-  async findAll() {
-    return this.productService.findAll();
+  async findAll(
+    @Query('category') category?: string,
+    @Query('minPrice') minPrice?: string,
+    @Query('maxPrice') maxPrice?: string,
+    @Query('brand') brand?: string,
+  ) {
+    const filters = {
+      category,
+      minPrice: minPrice ? Number(minPrice) : undefined,
+      maxPrice: maxPrice ? Number(maxPrice) : undefined,
+      brand,
+    };
+    return this.productService.findAll(filters);
   }
 }
