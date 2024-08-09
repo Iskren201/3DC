@@ -5,10 +5,11 @@ import {
   UploadedFile,
   UseInterceptors,
   Get,
+  Query,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ProductService } from './product.service';
 import { diskStorage } from 'multer';
+import { ProductService } from './product.service';
 import * as path from 'path';
 import { CreateProductDto } from './dto/create-product.dto/create-product.dto';
 
@@ -22,8 +23,7 @@ export class ProductController {
       storage: diskStorage({
         destination: './uploads',
         filename: (req, file, cb) => {
-          const uniqueSuffix =
-            Date.now() + '-' + Math.round(Math.random() * 1e9);
+          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
           const extname = path.extname(file.originalname);
           const filename = `${file.fieldname}-${uniqueSuffix}${extname}`;
           cb(null, filename);
@@ -36,13 +36,24 @@ export class ProductController {
     @UploadedFile() file: Express.Multer.File,
   ) {
     if (file) {
-      createProductDto.image = file.filename;
+      createProductDto.imageUrl = file.filename; // Assuming you want to store the filename in `imageUrl`
     }
     return this.productService.create(createProductDto);
   }
 
   @Get()
-  async findAll() {
+  async findAll(
+    @Query('category') category?: string,
+    @Query('minPrice') minPrice?: string,
+    @Query('maxPrice') maxPrice?: string,
+    @Query('brand') brand?: string,
+  ) {
+    const filters = {
+      category,
+      minPrice: minPrice ? Number(minPrice) : undefined,
+      maxPrice: maxPrice ? Number(maxPrice) : undefined,
+      brand,
+    };
     return this.productService.findAll();
   }
 }
