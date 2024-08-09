@@ -7,7 +7,7 @@ import { UserRole } from '../user/user.entity';
 @Controller('protected')
 export class ProtectedController {
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRole.ADMIN) // Only accessible to admins
+  @Roles(UserRole.Admin) // Only accessible to admins
   @Get()
   getProtectedData() {
     return { message: 'This is protected data' };
