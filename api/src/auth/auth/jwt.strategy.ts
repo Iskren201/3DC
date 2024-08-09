@@ -10,7 +10,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     console.log('JWT_SECRET:', secret); 
 
     if (!secret) {
-      throw new Error('JWT_SECRET is not defined in configuration'); //TODO: 
+      throw new Error('JWT_SECRET is not defined in configuration'); //TODO: for now is working
     }
     
     super({
