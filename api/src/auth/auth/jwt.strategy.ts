@@ -7,12 +7,12 @@ import { ConfigService } from '@nestjs/config';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private configService: ConfigService) {
     const secret = configService.get<string>('JWT_SECRET');
-    console.log('JWT_SECRET:', secret); 
+    console.log('JWT_SECRET:', secret);
 
     if (!secret) {
-      throw new Error('JWT_SECRET is not defined in configuration'); //TODO: 
+      throw new Error('JWT_SECRET is not defined in configuration');
     }
-    
+
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
