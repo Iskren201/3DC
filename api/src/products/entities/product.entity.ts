@@ -6,16 +6,16 @@ export class Product {
   id: number;
 
   @Column()
-  name: string;
+  name?: string;
 
   @Column({ default: 'No description provided)', nullable: true })
-  description: string;
+  description?: string;
 
   @Column({ nullable: true, type: 'decimal' })
   price: number;
 
   @Column({ nullable: true, type: 'int' })
-  stock: number;
+  stock?: number;
 
   @Column({ nullable: true })
   imageUrl: string;
