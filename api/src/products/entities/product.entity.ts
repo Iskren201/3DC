@@ -6,7 +6,7 @@ export class Product {
   id: number;
 
   @Column()
-  name: string;
+  name?: string;
 
   @Column({ default: 'No description provided', nullable: true })
   description: string;
