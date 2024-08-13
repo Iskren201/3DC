@@ -8,15 +8,11 @@ export class Product {
   @Column()
   name?: string;
 
-  @Column({ default: 'No description provided)', nullable: true })
-  description?: string;
+  @Column({ default: 'No description provided', nullable: true })
+  description: string;
 
   @Column({ nullable: true, type: 'decimal' })
   price: number;
 
-  @Column({ nullable: true, type: 'int' })
-  stock?: number;
-
-  @Column({ nullable: true })
-  imageUrl: string;
+  // You can add other properties like stock, imageUrl, etc. here as needed
 }
