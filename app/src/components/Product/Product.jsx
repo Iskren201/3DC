@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ProductList from './Product-list'; // Fixed import path
+import ProductList from './Product-list';
 
 const Product = () => {
     const [filters, setFilters] = useState({
@@ -14,7 +14,7 @@ const Product = () => {
         if (type === 'checkbox') {
             setFilters((prevFilters) => ({
                 ...prevFilters,
-                category: checked ? value : '', // Only one category can be selected at a time
+                category: checked ? value : '',
             }));
         } else if (type === 'radio') {
             if (name === 'minPrice') {

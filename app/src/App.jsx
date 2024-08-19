@@ -28,7 +28,7 @@ function App() {
     <CartProvider>
       <BrowserRouter>
         <div className="min-h-screen flex flex-col">
-          <Navbar isLoggedIn={isLoggedIn} />
+          <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
           <div className="flex-grow">
             <Routes>
               <Route path='/' element={<Home />} />

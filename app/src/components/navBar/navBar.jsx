@@ -5,9 +5,10 @@ import { faUser, faShoppingCart, faBars } from '@fortawesome/free-solid-svg-icon
 import logo from '../../assets/img/Logo.png';
 import { useCart } from '../addToCart/CartContext';
 
-function Navbar({ isLoggedIn }) {
+function Navbar({ isLoggedIn, setIsLoggedIn }) {
     const [showMenu, setShowMenu] = React.useState(false);
     const [showDropdown, setShowDropdown] = React.useState(false);
+    // const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('access_token'));
     const navigate = useNavigate();
     const dropdownRef = React.useRef(null);
     const { cartCount } = useCart(); // Correctly call this from context
@@ -24,9 +25,22 @@ function Navbar({ isLoggedIn }) {
         navigate('/login');
     };
 
-    const handleLogoutClick = () => {
-        // TODO: Implement logout logic
-        navigate('/');
+    const handleLogoutClick = async () => {
+        try {
+            await fetch('/auth/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            localStorage.removeItem('access_token');
+            setIsLoggedIn(false);
+            navigate('/');
+
+        } catch (error) {
+            console.error('Logout failed', error);
+        }
     };
 
     const handleClickOutside = (event) => {

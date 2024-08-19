@@ -1,33 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { useCart } from '../addToCart/CartContext'; // Correct import path
+import { useCart } from '../addToCart/CartContext';
 
-const ProductList = ({ filters }) => { // Receive filters as props
+const ProductList = ({ filters }) => {
     const [products, setProducts] = useState([]);
-    const { addToCart } = useCart(); // Access context function
+    const { addToCart } = useCart();
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                // Construct the query parameters from filters
                 const queryParams = new URLSearchParams(filters).toString();
                 const response = await fetch(`http://localhost:3000/products?${queryParams}`);
-                
+
                 if (!response.ok) {
                     throw new Error('Failed to fetch products');
                 }
-                
+
                 const data = await response.json();
-                setProducts(data); // Set products data from response
+                setProducts(data);
             } catch (error) {
                 console.error(error);
             }
         };
 
         fetchProducts();
-    }, [filters]); // Re-fetch products when filters change
+    }, [filters]);
 
     const handleAddToCart = (product) => {
-        addToCart(product); // Use the context function
+        addToCart(product);
         alert('Product added to cart!');
     };
 

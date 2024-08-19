@@ -11,7 +11,7 @@ import { ProductModule } from './products/products.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env'
+      envFilePath: '.env',
     }),
     TypeOrmModule.forRoot(dataSourceOptions),
     AuthModule,

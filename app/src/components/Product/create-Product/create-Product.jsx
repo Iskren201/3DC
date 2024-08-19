@@ -49,7 +49,6 @@ const CreateProduct = () => {
 
             const result = await response.json();
             console.log('Product created:', result);
-            // Reset form
             setProductData({
                 name: '',
                 description: '',
