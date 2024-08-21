@@ -39,29 +39,29 @@ export class ProductService {
   }): Promise<Product[]> {
     const queryBuilder = this.productRepository.createQueryBuilder('product');
     //! Now is not use this added by @Rumen-Nikolaev
-    // const filterFunctions = {   // Problem with this
-    //   category: (value: string) =>
-    //     queryBuilder.andWhere('product.category = :category', {
-    //       category: value,
-    //     }),
-    //   minPrice: (value: number) =>
-    //     queryBuilder.andWhere('product.price >= :minPrice', {
-    //       minPrice: value,
-    //     }),
-    //   maxPrice: (value: number) =>
-    //     queryBuilder.andWhere('product.price <= :maxPrice', {
-    //       maxPrice: value,
-    //     }),
-    //   brand: (value: string) =>
-    //     queryBuilder.andWhere('product.brand = :brand', { brand: value }),
-    // };
+    const filterFunctions = {
+      category: (value: string) =>
+        queryBuilder.andWhere('product.category = :category', {
+          category: value,
+        }),
+      minPrice: (value: number) =>
+        queryBuilder.andWhere('product.price >= :minPrice', {
+          minPrice: value,
+        }),
+      maxPrice: (value: number) =>
+        queryBuilder.andWhere('product.price <= :maxPrice', {
+          maxPrice: value,
+        }),
+      brand: (value: string) =>
+        queryBuilder.andWhere('product.brand = :brand', { brand: value }),
+    };
 
-    // Object.entries(filters || {}).forEach(([key, value]) => {
-    //   const filterFunction = filterFunctions[key];
-    //   if (filterFunction) {
-    //     filterFunction(value);
-    //   }
-    // });
+    Object.entries(filters || {}).forEach(([key, value]) => {
+      const filterFunction = filterFunctions[key];
+      if (filterFunction) {
+        filterFunction(value);
+      }
+    });
 
     try {
       const products = await queryBuilder.getMany();

@@ -13,6 +13,6 @@ const Contact = () => {
             </div>
         </div>
     );
-};
+}; // Comments
 
 export default Contact;
