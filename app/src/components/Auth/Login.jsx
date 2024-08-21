@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Modal from '../Modal/Login.modal';
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = ({ setIsLoggedIn, isOpen, onClose, handleOpenRegisterModal }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -15,11 +16,10 @@ const Login = ({ setIsLoggedIn }) => {
                 email,
                 password,
             });
-            console.log(response.data);
             if (response.data.access_token) {
                 localStorage.setItem('access_token', response.data.access_token);
                 setIsLoggedIn(true);
-                navigate('/');
+                onClose();
             } else {
                 console.error('Invalid login response');
             }
@@ -29,15 +29,20 @@ const Login = ({ setIsLoggedIn }) => {
     };
 
     return (
-        <div className="flex justify-center mt-8">
-            <form onSubmit={handleSubmit} className="w-80 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                <h2 className="text-2xl font-bold mb-4">Login</h2>
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                        Email:
+        <Modal isOpen={isOpen} onClose={onClose}>
+            <form onSubmit={handleSubmit} className="space-y-6 text-white font-sans">
+                <h2
+                    className="text-4xl font-bold text-center mb-4"
+                    style={{ fontFamily: 'Orbitron, sans-serif' }}
+                >
+                    Login
+                </h2>
+                <div>
+                    <label className="block text-sm font-medium mb-2" htmlFor="email">
+                        Email
                     </label>
                     <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="w-full p-2 bg-transparent border-b border-gray-500 text-white focus:outline-none focus:border-blue-400"
                         id="email"
                         type="email"
                         value={email}
@@ -45,12 +50,12 @@ const Login = ({ setIsLoggedIn }) => {
                         required
                     />
                 </div>
-                <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                        Password:
+                <div>
+                    <label className="block text-sm font-medium mb-2" htmlFor="password">
+                        Password
                     </label>
                     <input
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                        className="w-full p-2 bg-transparent border-b border-gray-500 text-white focus:outline-none focus:border-blue-400"
                         id="password"
                         type="password"
                         value={password}
@@ -58,24 +63,35 @@ const Login = ({ setIsLoggedIn }) => {
                         required
                     />
                 </div>
-                <div className="flex items-center justify-between">
-                    <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="submit"
-                    >
-                        Login
-                    </button>
+                <div className="flex items-center justify-between text-sm">
+                    <div>
+                        <input type="checkbox" id="remember" className="mr-2" />
+                        <label htmlFor="remember">Remember me</label>
+                    </div>
+                    <div>
+                        <Link to="/forgot-password" className="hover:text-gray-400">Forgot password?</Link>
+                    </div>
                 </div>
-                <div className="mt-4 text-center">
+                <button
+                    className="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded-full text-lg font-bold"
+                    style={{ fontFamily: 'Orbitron, sans-serif', letterSpacing: '1px' }}
+                    type="submit"
+                >
+                    LOGIN
+                </button>
+                <div className="text-center mt-4">
                     <p className="text-sm">
                         Don't have an account?{' '}
-                        <Link to="/register" className="text-blue-500 hover:text-blue-700">
-                            Register
-                        </Link>
+                        <button
+                            onClick={handleOpenRegisterModal}
+                            className="text-blue-400 hover:text-blue-600"
+                        >
+                            Register here
+                        </button>
                     </p>
                 </div>
             </form>
-        </div>
+        </Modal>
     );
 };
 

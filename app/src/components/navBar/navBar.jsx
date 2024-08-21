@@ -5,13 +5,12 @@ import { faUser, faShoppingCart, faBars } from '@fortawesome/free-solid-svg-icon
 import logo from '../../assets/img/Logo.png';
 import { useCart } from '../addToCart/CartContext';
 
-function Navbar({ isLoggedIn, setIsLoggedIn }) {
+function Navbar({ isLoggedIn, setIsLoggedIn, handleOpenModal }) {
     const [showMenu, setShowMenu] = React.useState(false);
     const [showDropdown, setShowDropdown] = React.useState(false);
-    // const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('access_token'));
     const navigate = useNavigate();
     const dropdownRef = React.useRef(null);
-    const { cartCount } = useCart(); // Correctly call this from context
+    const { cartCount } = useCart();
 
     const toggleMenu = () => {
         setShowMenu(!showMenu);
@@ -19,10 +18,6 @@ function Navbar({ isLoggedIn, setIsLoggedIn }) {
 
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
-    };
-
-    const handleLoginClick = () => {
-        navigate('/login');
     };
 
     const handleLogoutClick = async () => {
@@ -93,7 +88,9 @@ function Navbar({ isLoggedIn, setIsLoggedIn }) {
                             </Link>
                         </>
                     ) : (
-                        <button onClick={handleLoginClick} className="p-2 bg-blue-500 hover:bg-blue-700 text-white rounded font-proxima-nova-condensed">Login</button>
+                        <button onClick={handleOpenModal} className="p-2 bg-blue-500 hover:bg-blue-700 text-white rounded font-proxima-nova-condensed">
+                            Login
+                        </button>
                     )}
                 </div>
             </div>
