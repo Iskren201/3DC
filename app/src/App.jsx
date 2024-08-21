@@ -6,6 +6,7 @@ import Home from './components/Home/Home';
 import Register from './components/Auth/Register';
 import Navbar from './components/navBar/navBar';
 import Profile from './components/Profile/Profile';
+import Contact from './components/Contact/Contact';
 import Product from './components/Product/Product';
 import Footer from './components/Footer/Footer';
 import CreateProduct from './components/Product/create-Product/create-Product';
