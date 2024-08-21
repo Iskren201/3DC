@@ -38,34 +38,32 @@ export class ProductService {
     brand?: string;
   }): Promise<Product[]> {
     const queryBuilder = this.productRepository.createQueryBuilder('product');
+    //! Now is not use this added by @Rumen-Nikolaev
+    const filterFunctions = {
+      category: (value: string) =>
+        queryBuilder.andWhere('product.category = :category', {
+          category: value,
+        }),
+      minPrice: (value: number) =>
+        queryBuilder.andWhere('product.price >= :minPrice', {
+          minPrice: value,
+        }),
+      maxPrice: (value: number) =>
+        queryBuilder.andWhere('product.price <= :maxPrice', {
+          maxPrice: value,
+        }),
+      brand: (value: string) =>
+        queryBuilder.andWhere('product.brand = :brand', { brand: value }),
+    };
+
+    Object.entries(filters || {}).forEach(([key, value]) => {
+      const filterFunction = filterFunctions[key];
+      if (filterFunction) {
+        filterFunction(value);
+      }
+    });
 
     try {
-      if (filters) {
-        if (filters.category) {
-          queryBuilder.andWhere('product.category = :category', {
-            category: filters.category,
-          });
-        }
-
-        if (filters.minPrice !== undefined) {
-          queryBuilder.andWhere('product.price >= :minPrice', {
-            minPrice: filters.minPrice,
-          });
-        }
-
-        if (filters.maxPrice !== undefined) {
-          queryBuilder.andWhere('product.price <= :maxPrice', {
-            maxPrice: filters.maxPrice,
-          });
-        }
-
-        if (filters.brand) {
-          queryBuilder.andWhere('product.brand = :brand', {
-            brand: filters.brand,
-          });
-        }
-      }
-
       const products = await queryBuilder.getMany();
       this.logger.log(
         `Products fetched successfully: ${JSON.stringify(products)}`,
