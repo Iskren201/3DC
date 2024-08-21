@@ -60,7 +60,6 @@ function App() {
             </Routes>
           </div>
           <Footer />
-
           <Login isOpen={isModalOpen} onClose={handleCloseModal} setIsLoggedIn={setIsLoggedIn} handleOpenRegisterModal={handleOpenRegisterModal} />
           <Register isOpen={isRegisterModalOpen} onClose={handleCloseRegisterModal} />
         </div>
