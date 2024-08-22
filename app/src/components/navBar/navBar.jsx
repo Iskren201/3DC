@@ -59,7 +59,7 @@ function Navbar({ isLoggedIn, setIsLoggedIn, handleOpenModal }) {
             <div className="hidden md:flex md:items-center md:space-x-6">
                 <ul className="flex space-x-6 justify-items-center items-center">
                     <li><Link to='/product' className="hover:underline">Products</Link></li>
-                    <li><a href="#contacts" className="hover:underline">Contacts</a></li>
+                    <li><Link to="/contact" className="hover:underline">Contact</Link></li>
                     <li><a href="#about-us" className="hover:underline">About Us</a></li>
                 </ul>
                 <div className="flex items-center space-x-2">
