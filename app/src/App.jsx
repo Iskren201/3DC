@@ -7,6 +7,7 @@ import Register from './components/Auth/Register';
 import Navbar from './components/navBar/navBar';
 import Profile from './components/Profile/Profile';
 import Product from './components/Product/Product';
+import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
 import CreateProduct from './components/Product/create-Product/create-Product';
 import { CartProvider } from './components/addToCart/CartContext';
@@ -57,6 +58,7 @@ function App() {
               <Route path='/product' element={<Product />} />
               <Route path='/createProduct' element={<CreateProduct />} />
               <Route path='/cart' element={<Cart />} />
+              <Route path='/contact' element={<Contact />} />
             </Routes>
           </div>
           <Footer />
