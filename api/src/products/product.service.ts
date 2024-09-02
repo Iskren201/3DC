@@ -31,47 +31,36 @@ export class ProductService {
     }
   }
 
-  async findAll(filters?: {
+  async findAll(filters: {
     category?: string;
-    minPrice?: number;
-    maxPrice?: number;
+    minPrice?: string;
+    maxPrice?: string;
     brand?: string;
   }): Promise<Product[]> {
-    const queryBuilder = this.productRepository.createQueryBuilder('product');
-    //! Now is not use this added by @Rumen-Nikolaev
-    const filterFunctions = {
-      category: (value: string) =>
-        queryBuilder.andWhere('product.category = :category', {
-          category: value,
-        }),
-      minPrice: (value: number) =>
-        queryBuilder.andWhere('product.price >= :minPrice', {
-          minPrice: value,
-        }),
-      maxPrice: (value: number) =>
-        queryBuilder.andWhere('product.price <= :maxPrice', {
-          maxPrice: value,
-        }),
-      brand: (value: string) =>
-        queryBuilder.andWhere('product.brand = :brand', { brand: value }),
-    };
+    const query = this.productRepository.createQueryBuilder('product');
 
-    Object.entries(filters || {}).forEach(([key, value]) => {
-      const filterFunction = filterFunctions[key];
-      if (filterFunction) {
-        filterFunction(value);
-      }
-    });
-
-    try {
-      const products = await queryBuilder.getMany();
-      this.logger.log(
-        `Products fetched successfully: ${JSON.stringify(products)}`,
-      );
-      return products;
-    } catch (error) {
-      this.logger.error('Error fetching products', error.stack);
-      throw new InternalServerErrorException('Failed to fetch products');
+    if (filters.category) {
+      query.andWhere('product.category = :category', {
+        category: filters.category,
+      });
     }
+
+    if (filters.minPrice) {
+      query.andWhere('product.price >= :minPrice', {
+        minPrice: filters.minPrice,
+      });
+    }
+
+    if (filters.maxPrice) {
+      query.andWhere('product.price <= :maxPrice', {
+        maxPrice: filters.maxPrice,
+      });
+    }
+
+    if (filters.brand) {
+      query.andWhere('product.brand = :brand', { brand: filters.brand });
+    }
+
+    return await query.getMany();
   }
 }

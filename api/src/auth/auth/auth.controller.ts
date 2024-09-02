@@ -23,21 +23,6 @@ export class AuthController {
     }
     return { message: 'Invalid credentials' };
   }
-  //TODO
-  // @UseGuards(JwtAuthGuard)
-  // @Get('profile')
-  // async getProfile(@Req() req: User) {
-  //   return this.authService.getProfile(req.id);
-  // }
-
-  // @UseGuards(JwtAuthGuard)
-  // @Put('profile')
-  // async updateProfile(
-  //   @Req() req: User,
-  //   @Body() body: { username: string; email: string },
-  // ) {
-  //   return this.authService.updateProfile(req.id, body.username, body.email);
-  // }
 
   @Post('logout')
   async logout() {

@@ -8,6 +8,7 @@ import {
   UseInterceptors,
   HttpException,
   HttpStatus,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -19,6 +20,25 @@ import { Product } from './entities/product.entity';
 @Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
+
+  @Get()
+  async findAll(
+    @Query('category') category: string,
+    @Query('minPrice') minPrice: string,
+    @Query('maxPrice') maxPrice: string,
+    @Query('brand') brand: string,
+  ): Promise<Product[]> {
+    try {
+      return await this.productService.findAll({
+        category,
+        minPrice,
+        maxPrice,
+        brand,
+      });
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to fetch products');
+    }
+  }
 
   @Post()
   @UseInterceptors(
@@ -49,30 +69,6 @@ export class ProductController {
     } catch (error) {
       throw new HttpException(
         'Failed to create product',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
-    }
-  }
-
-  @Get()
-  async findAll(
-    @Query('category') category?: string,
-    @Query('minPrice') minPrice?: number,
-    @Query('maxPrice') maxPrice?: number,
-    @Query('brand') brand?: string,
-  ): Promise<Product[]> {
-    const filters = {
-      category,
-      minPrice: minPrice ? +minPrice : undefined,
-      maxPrice: maxPrice ? +maxPrice : undefined,
-      brand,
-    };
-
-    try {
-      return await this.productService.findAll(filters);
-    } catch (error) {
-      throw new HttpException(
-        'Failed to fetch products',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

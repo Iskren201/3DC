@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from './CartContext'; // Correct import path
+import { useCart } from './CartContext';
 
 const Cart = () => {
     const { cart, removeFromCart } = useCart();
