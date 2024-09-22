@@ -33,9 +33,23 @@ export const CartProvider = ({ children }) => {
         setCart(updatedCart);
     };
 
+
     const removeFromCart = (productId) => {
-        const updatedCart = cart.filter(item => item.id !== productId);
-        setCart(updatedCart);
+        const updatedCart = [...cart];
+        const existingProductIndex = updatedCart.findIndex(item => item.id === productId);
+
+        if (existingProductIndex > -1) {
+            const updatedProduct = { ...updatedCart[existingProductIndex] };
+            updatedProduct.quantity -= 1;
+
+            if (updatedProduct.quantity <= 0) {
+                updatedCart.splice(existingProductIndex, 1);
+            } else {
+                updatedCart[existingProductIndex] = updatedProduct;
+            }
+
+            setCart(updatedCart);
+        }
     };
 
     const cartCount = cart.reduce((total, item) => total + item.quantity, 0);

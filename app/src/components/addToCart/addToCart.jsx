@@ -22,7 +22,6 @@ const Cart = () => {
             ) : (
                 <ul className="divide-y divide-gray-200">
                     {cart.map((item) => {
-                        // Ensure item.price is a number
                         const price = Number(item.price) || 0;
 
                         return (
