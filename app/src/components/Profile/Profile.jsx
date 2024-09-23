@@ -9,53 +9,65 @@ const Profile = () => {
         email: '',
     });
 
+    const [error, setError] = useState(null); // Handle errors
+
+    // Fetch user profile when component mounts
     useEffect(() => {
         const fetchUserProfile = async () => {
             const token = localStorage.getItem('access_token');
             try {
                 const response = await axios.get('http://localhost:3000/profile', {
                     headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`,
+                    },
                 });
                 setUser(response.data);
                 setFormData({
                     username: response.data.username,
                     email: response.data.email,
                 });
-            } catch (error) {
-                console.error('Error fetching user profile:', error);
+            } catch (err) {
+                console.error('Error fetching user profile:', err);
+                setError('Error fetching user profile.');
             }
         };
         fetchUserProfile();
     }, []);
 
+    // Handle form input changes
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
-            [name]: value
+            [name]: value,
         });
     };
 
+    // Toggle edit mode
     const handleEditClick = () => {
         setEditing(true);
     };
 
+    // Save changes to profile
     const handleSaveClick = async () => {
         const token = localStorage.getItem('access_token');
         try {
             const response = await axios.put('http://localhost:3000/profile', formData, {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                    Authorization: `Bearer ${token}`,
+                },
             });
             setUser(response.data);
             setEditing(false);
-        } catch (error) {
-            console.error('Error updating profile:', error);
+        } catch (err) {
+            console.error('Error updating profile:', err);
+            setError('Error updating profile.');
         }
     };
+
+    if (error) {
+        return <div className="text-red-500">{error}</div>;
+    }
 
     if (!user) {
         return <div>Loading...</div>;
@@ -82,6 +94,7 @@ const Profile = () => {
                         <p>{user.username}</p>
                     )}
                 </div>
+
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
                         Email
@@ -99,6 +112,7 @@ const Profile = () => {
                         <p>{user.email}</p>
                     )}
                 </div>
+
                 <div className="flex items-center justify-between">
                     {editing ? (
                         <button

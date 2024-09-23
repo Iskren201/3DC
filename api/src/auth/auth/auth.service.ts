@@ -13,6 +13,10 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
+  async onModuleInit() {
+    await this.createDefaultUser();
+  }
+
   async register(
     username: string,
     email: string,
@@ -46,5 +50,32 @@ export class AuthService {
   ): Promise<User> {
     await this.usersRepository.update(userId, { username, email });
     return this.getProfile(userId);
+  }
+
+  private async createDefaultUser() {
+    const defaultEmail = 'iskren201@gmail.com';
+    const defaultPassword = 'Test@123';
+
+    // Check if the default user already exists
+    const existingUser = await this.usersRepository.findOne({
+      where: { email: defaultEmail },
+    });
+
+    if (!existingUser) {
+      // Hash the default password before saving
+      const hashedPassword = await bcrypt.hash(defaultPassword, 10);
+
+      // Create the default user
+      const defaultUser = this.usersRepository.create({
+        username: 'admin',
+        email: defaultEmail,
+        password: hashedPassword,
+      });
+
+      await this.usersRepository.save(defaultUser);
+      console.log('Default user created with email:', defaultEmail);
+    } else {
+      console.log('Default user already exists with email:', defaultEmail);
+    }
   }
 }

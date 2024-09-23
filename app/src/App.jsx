@@ -12,6 +12,7 @@ import Footer from './components/Footer/Footer';
 import CreateProduct from './components/Product/create-Product/create-Product';
 import { CartProvider } from './components/addToCart/CartContext';
 import Cart from './components/addToCart/addToCart';
+import Checkout from './components/CheckOut/CheckOut';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -59,6 +60,9 @@ function App() {
               <Route path='/createProduct' element={<CreateProduct />} />
               <Route path='/cart' element={<Cart />} />
               <Route path='/contact' element={<Contact />} />
+              <Route path='/checkout' element={<Checkout />} />
+              {/*TODO: Only admin to see it */}
+              <Route path='/Profile' element={<Profile />} />
             </Routes>
           </div>
           <Footer />
