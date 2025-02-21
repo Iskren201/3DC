@@ -6,6 +6,7 @@ function App() {
     <>
         <div>
           3DC
+          Text only
         </div>
     </>
   )
