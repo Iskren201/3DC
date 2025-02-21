@@ -6,6 +6,7 @@ const Hero = () => {
         <h1>Hero s s </h1>
         <h1>Hero s s </h1>
         <h1>Hero</h1>
+        <h1>Herroooo</h1>
     </div>
   )
 }
