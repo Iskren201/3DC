@@ -1,13 +1,20 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
+import Hero from './components/Hero'
+import NavBar from './components/NavBar'
+import Footer from './components/Footer';
 
 function App() {
 
   return (
-    <>
-        <div>
-          Branch Check
-        </div>
-    </>
+    <Router>
+      <NavBar/>
+      <Routes>
+        {/* <Route  element={<Hero/>}/> */}
+        <Hero/>
+      </Routes>
+      <Footer/>
+    </Router>
   )
 }
 
